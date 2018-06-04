@@ -73,13 +73,13 @@ const ProfileSchema = new Schema({
 
 			from: 
 			{
-				type: String,
+				type: Date,
 				required: true
 			},
 
 			to: 
 			{
-				type: String,
+				type: Date,
 				
 			},
 
@@ -115,13 +115,13 @@ const ProfileSchema = new Schema({
 
 			from: 
 			{
-				type: String,
+				type: Date,
 				required: true
 			},
 
 			to: 
 			{
-				type: String,
+				type: Date,
 				
 			},
 
