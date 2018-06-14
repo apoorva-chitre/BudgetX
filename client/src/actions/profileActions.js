@@ -1,17 +1,38 @@
 import axios from 'axios';
 
 import { 
-	GET_PROFILE, 
+	GET_PROFILE,
+	GET_PROFILES, 
 	PROFILE_LOADING, 
 	CLEAR_CURRENT_PROFILE, 
 	GET_ERRORS,
-	SET_CURRENT_USER
+	SET_CURRENT_USER,
+	
 } from './types';
 
 // Get current profile
 export const getCurrentProfile = () => dispatch => {
 	dispatch(setProfileLoading());
 	axios.get('/api/profile')
+	.then(res => 
+		dispatch({
+			type: GET_PROFILE,
+			payload: res.data
+		})
+	)
+	.catch(err => 
+		dispatch({
+			type: GET_PROFILE,
+			payload: {}
+		})
+	);
+}
+
+// Get profile by handle 
+export const getProfileByHandle = (handle) => dispatch => {
+	dispatch(setProfileLoading());
+	axios
+	.get(`/api/profile/handle/${handle}`)
 	.then(res => 
 		dispatch({
 			type: GET_PROFILE,
@@ -102,7 +123,7 @@ export const deleteExperience = id => dispatch => {
     );
 };
 
-// Delete Experience
+// Delete Education
 export const deleteEducation = id => dispatch => {
   axios
     .delete(`/api/profile/education/${id}`)
@@ -119,6 +140,25 @@ export const deleteEducation = id => dispatch => {
       })
     );
 };
+
+// Get all Profiles
+export const getProfiles = () => dispatch => {
+	dispatch(setProfileLoading());
+	axios
+	.get('/api/profile/all')
+	.then(res => 
+		dispatch({
+			type: GET_PROFILES,
+			payload: res.data
+		})
+	)
+	.catch(err => 
+		dispatch({
+			type: GET_PROFILES,
+			payload: null
+		})
+	);
+}
 
 // Delete account and profile
 export const deleteAccount = () => dispatch => {
